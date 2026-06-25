@@ -1,11 +1,11 @@
 {
-  "buildCommand": "cd web && npm install && npm run build",
+  "buildCommand": "cd web && npm install && npm run build && cd ../server && npm install",
   "outputDirectory": "web/dist",
-  "installCommand": "cd web && npm install",
+  "installCommand": "npm install --prefix web && npm install --prefix server",
   "framework": null,
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://yuanhai-api.onrender.com/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api/:path*", "destination": "/api/:path*" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
@@ -14,5 +14,10 @@
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/[[path]].js": {
+      "runtime": "nodejs20.x"
+    }
+  }
 }
