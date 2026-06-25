@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd web && npm install && npm run build",
-    "vercel-build": "cd web && npm install && npm run build && cd ../server && npm install"
+    "build": "cd web && npm install --include=dev && npm run build"
   },
   "dependencies": {
     "express": "^4.19.2",
@@ -21,6 +20,5 @@
     "morgan": "^1.10.0",
     "uuid": "^9.0.1",
     "node-cron": "^3.0.3"
-  },
-  "devDependencies": {}
+  }
 }
