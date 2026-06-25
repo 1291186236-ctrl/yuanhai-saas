@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>选择商品文件夹</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font: 14px/1.6 system-ui, -apple-system, sans-serif;
+      padding: 32px 24px;
+      text-align: center;
+      color: #333;
+      background: #fafafa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 28px;
+      border: none;
+      border-radius: 8px;
+      background: #4a90d9;
+      color: #fff;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+    .btn:hover { background: #3a7bc8; }
+    .btn:active { background: #2d6bb5; }
+    .status { margin-top: 20px; color: #666; font-size: 13px; min-height: 20px; }
+    .hint { color: #aaa; font-size: 12px; margin-top: 24px; }
+    .progress-text { color: #4a90d9; font-weight: 500; }
+    .error-text { color: #e53935; }
+    .success-text { color: #43a047; }
+  </style>
+</head>
+<body>
+  <input type="file" id="folderInput" webkitdirectory style="display:none">
+  <button class="btn" id="selectBtn">📂 选择商品文件夹</button>
+  <div id="status" class="status"></div>
+  <div class="hint">选择文件夹后，数据将自动传回插件面板</div>
+  <script src="folder-picker.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>支付成功 - 商品自动化助手</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: #f0fdf4;
+      margin: 0;
+    }
+    .success-card {
+      text-align: center;
+      background: #fff;
+      padding: 48px 32px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    .success-icon { font-size: 64px; margin-bottom: 16px; }
+    h1 { color: #1f2937; margin-bottom: 8px; }
+    p { color: #6b7280; margin-bottom: 24px; }
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #4f46e5;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn:hover { background: #4338ca; }
+  </style>
+</head>
+<body>
+  <div class="success-card">
+    <div class="success-icon">🎉</div>
+    <h1>支付成功！</h1>
+    <p>您的会员已升级，请返回插件查看最新状态。</p>
+    <a href="/#/account" class="btn">返回账户</a>
+  </div>
+  <script>
+    setTimeout(() => { window.location.href = '/#/account'; }, 3000);
+  </script>
+</body>
+</html>

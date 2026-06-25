@@ -1,0 +1,205 @@
+<!-- popup/popup.html - 最终完整版 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>商品自动化助手</title>
+  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="../lib/auth-ui.css">
+</head>
+<body>
+<div class="container">
+
+  <!-- 会员状态条 -->
+  <div id="authStatusBar"></div>
+
+  <!-- 标题栏 -->
+  <div class="header">
+    <span class="header-title">🛍️ 商品自动化助手</span>
+    <button class="btn-icon" id="btnSettings" title="设置">⚙️</button>
+  </div>
+
+  <!-- 第一步 -->
+  <div class="section">
+    <div class="section-title">📁 第一步：选择文件</div>
+    <div class="file-row">
+      <span class="file-label">Excel总表：</span>
+      <button class="btn-sm" id="btnSelectExcel">选择文件</button>
+      <input type="file" id="inputExcel" accept=".xlsx,.xls" style="display:none">
+    </div>
+    <div class="file-status" id="statusExcel">未选择</div>
+    <div class="file-row">
+      <span class="file-label">商品文件夹：</span>
+      <button class="btn-sm" id="btnSelectFolder">选择文件夹</button>
+      <input type="file" id="inputFolder" webkitdirectory style="display:none">
+    </div>
+    <div class="file-status" id="statusFolder">未选择</div>
+  </div>
+
+  <!-- 第二步 -->
+  <div class="section">
+    <div class="section-title">📋 第二步：商品列表</div>
+    <div id="productList" class="product-list">
+      <div class="empty-hint">请先选择Excel总表和商品文件夹</div>
+    </div>
+    <div id="productSummary" class="product-summary" style="display:none"></div>
+  </div>
+
+  <!-- 模板切换 -->
+  <div class="section">
+    <div class="section-title">💬 消息模板</div>
+    <div class="tpl-switch-row">
+      <select id="tplSwitcher" class="tpl-switcher"></select>
+      <span id="tplInfo" class="tpl-info"></span>
+    </div>
+  </div>
+
+  <!-- 第三步 -->
+  <div class="section">
+    <div class="section-title">🌐 第三步：网站选择与配置</div>
+    <div id="siteStatusList"></div>
+    <div class="file-row" style="margin-top:8px">
+      <button class="btn-sm" id="btnPrecheck">🔍 一键检测配置</button>
+    </div>
+  </div>
+
+  <!-- 第四步 -->
+  <div class="section">
+    <div class="section-title">⚡ 第四步：自动化流程</div>
+    <div class="pipeline-options">
+      <label class="pipeline-option">
+        <input type="radio" name="pipelineMode" value="both">
+        <span class="pipeline-label">分析 + 生图</span>
+        <span class="pipeline-desc">完整流程</span>
+      </label>
+      <label class="pipeline-option">
+        <input type="radio" name="pipelineMode" value="analysis_only">
+        <span class="pipeline-label">仅分析</span>
+        <span class="pipeline-desc">只提交分析</span>
+      </label>
+      <label class="pipeline-option">
+        <input type="radio" name="pipelineMode" value="imagegen_only">
+        <span class="pipeline-label">仅生图</span>
+        <span class="pipeline-desc">跳过分析</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- 进度 -->
+  <div class="section" id="progressSection" style="display:none">
+    <div class="section-title">⏳ 处理进度</div>
+
+    <div class="progress-block">
+      <div class="progress-label">
+        Arena.ai: <span id="arenaStageText">待机</span>
+      </div>
+      <!-- 上传进度条（上传中才显示） -->
+      <div class="progress-bar-wrap" id="arenaUploadWrap" style="display:none">
+        <span class="progress-prefix">上传</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="arenaUploadFill"></div>
+        </div>
+        <span class="progress-text" id="arenaUploadText">0/0张</span>
+      </div>
+      <!-- 总进度条 -->
+      <div class="progress-bar-wrap">
+        <span class="progress-prefix">总进度</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="arenaTotalFill"></div>
+        </div>
+        <span class="progress-text" id="arenaTotalText">0/0</span>
+      </div>
+    </div>
+
+    <div class="progress-block">
+      <div class="progress-label">
+        豆包: <span id="doubaoStageText">待机</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <span class="progress-prefix">图片</span>
+        <div class="progress-bar">
+          <div class="progress-fill" id="doubaoImageFill"></div>
+        </div>
+        <span class="progress-text" id="doubaoImageText">0/0张</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 任务统计 -->
+  <div class="section" id="statsSection" style="display:none">
+    <div class="section-title">📊 任务统计</div>
+    <div class="stats-grid">
+      <div class="stat-item">
+        <span class="stat-value" id="statTotal">0</span>
+        <span class="stat-label">总计</span>
+      </div>
+      <div class="stat-item stat-done">
+        <span class="stat-value" id="statDone">0</span>
+        <span class="stat-label">完成</span>
+      </div>
+      <div class="stat-item stat-fail">
+        <span class="stat-value" id="statFailed">0</span>
+        <span class="stat-label">失败</span>
+      </div>
+      <div class="stat-item stat-skip">
+        <span class="stat-value" id="statSkipped">0</span>
+        <span class="stat-label">跳过</span>
+      </div>
+      <div class="stat-item stat-pending">
+        <span class="stat-value" id="statPending">0</span>
+        <span class="stat-label">待处理</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="statElapsed">--</span>
+        <span class="stat-label">耗时</span>
+      </div>
+    </div>
+    <div class="stats-bar-wrap">
+      <div class="stats-bar-fill stats-done-fill" id="statsBarDone"></div>
+      <div class="stats-bar-fill stats-fail-fill" id="statsBarFail"></div>
+      <div class="stats-bar-fill stats-skip-fill" id="statsBarSkip"></div>
+    </div>
+  </div>
+
+  <!-- 操作日志 -->
+  <div class="section" id="logSection">
+    <div class="section-title log-title-bar">
+      <span>📝 操作日志</span>
+      <div class="log-controls">
+        <button class="btn-xs-log" id="btnCopyLog" title="复制全部日志到剪贴板">复制</button>
+        <button class="btn-xs-log" id="btnClearLog" title="清空日志">清空</button>
+        <button class="btn-xs-log" id="btnToggleLog" title="展开/收起">收起</button>
+      </div>
+    </div>
+    <div id="logList" class="log-list"></div>
+  </div>
+
+  <!-- 告警框 -->
+  <div id="alertBox" class="alert-box" style="display:none">
+    <div class="alert-content" id="alertContent"></div>
+    <button class="btn-sm" id="alertAction" style="display:none">操作</button>
+    <button class="btn-icon alert-close" id="alertClose">✕</button>
+  </div>
+
+  <!-- 控制按钮 -->
+  <div class="control-bar">
+    <button class="btn-ctrl" id="btnPause" disabled>⏸️ 暂停</button>
+    <button class="btn-ctrl" id="btnReset">🔄 重置</button>
+    <button class="btn-ctrl" id="btnSkip"  disabled>⏭️ 跳过</button>
+    <button class="btn-ctrl" id="btnStop"  disabled>⏹️ 停止</button>
+  </div>
+  <div class="control-bar">
+    <button class="btn-primary" id="btnStart" disabled>▶ 开始自动处理</button>
+  </div>
+  <div class="control-bar" id="exportBar" style="display:none">
+    <button class="btn-export" id="btnExport">📥 导出结果到Excel</button>
+  </div>
+
+</div>
+<script src="../lib/xlsx.min.js"></script>
+<script src="../lib/api-client.js"></script>
+<script src="../lib/permission.js"></script>
+<script src="../lib/auth-ui.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+node_modules/
+.env
+*.log
+.DS_Store
+dist/
+chrome-extension/chrome-extension\ -\ 副本/
+chrome-extension.7z
