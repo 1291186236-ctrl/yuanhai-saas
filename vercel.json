@@ -1,8 +1,8 @@
 {
-  "buildCommand": "cd web && npm install && npm run build && cd ../server && npm install",
-  "outputDirectory": "web/dist",
-  "installCommand": "npm install --prefix web && npm install --prefix server",
   "framework": null,
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "web/dist",
+  "installCommand": "npm install",
   "rewrites": [
     { "source": "/api/:path*", "destination": "/api/:path*" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
