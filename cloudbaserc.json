@@ -1,0 +1,29 @@
+{
+  "version": "2.0",
+  "envId": "yuanhai-web-d1g1arjtcf3d2978e",
+  "functionRoot": "./cloudfunctions",
+  "functions": [
+    {
+      "name": "api",
+      "timeout": 30,
+      "envVariables": {
+        "NODE_ENV": "production",
+        "DATABASE_URL": "postgresql://neondb_owner:npg_SfC4DxHLqUK7@ep-icy-brook-atln77qj-pooler.c-9.us-east-1.aws.neon.tech/yuanhai?sslmode=require&channel_binding=require",
+        "JWT_SECRET": "zGIxtf18L5S6Tyks0deAu2PCoVU3QZpYbhEMiFl4ncr7aKHD",
+        "JWT_ACCESS_EXPIRES": "15m",
+        "JWT_REFRESH_EXPIRES": "7d",
+        "WEB_ORIGIN": "https://yuanhai-saas-nlfs.vercel.app"
+      },
+      "runtime": "Nodejs18.15",
+      "memorySize": 512,
+      "handler": "index.main",
+      "triggers": [
+        {
+          "name": "http",
+          "type": "http",
+          "path": "/"
+        }
+      ]
+    }
+  ]
+}

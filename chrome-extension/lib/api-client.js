@@ -11,7 +11,7 @@
     USER_PLAN: 'auth_user_plan'
   };
 
-  const DEFAULT_BASE = 'http://localhost:3000/api';
+  const DEFAULT_BASE = 'https://yuanhai-web-d1g1arjtcf3d2978e-1323801362.ap-shanghai.app.tcloudbase.com/api';
 
   const ApiClient = {
     baseUrl: DEFAULT_BASE,
