@@ -2,8 +2,5 @@
   "buildCommand": "npm run build",
   "outputDirectory": "web/dist",
   "installCommand": "npm install",
-  "framework": null,
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" }
-  ]
+  "framework": null
 }

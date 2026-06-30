@@ -1,4 +1,6 @@
-const API_BASE = '/api';
+const API_BASE = window.location.hostname === 'localhost' 
+    ? '/api' 
+    : 'https://yuanhai-web-d1g1arjtcf3d2978e-1323801362.ap-shanghai.app.tcloudbase.com/api';
 
 const STORAGE_KEYS = {
     ACCESS_TOKEN: 'yh_access_token',
