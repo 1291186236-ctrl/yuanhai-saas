@@ -121,6 +121,17 @@ export async function bindPricingEvents() {
                     // 易收米支付
                     const result = await api.yishoumiCheckout(plan, payMethod);
                     if (result?.ok && result.data?.payUrl) {
+                        // 安全检查：确保 payUrl 是有效的 URL
+                        try {
+                            const url = new URL(result.data.payUrl);
+                            if (!url.hostname || url.hostname.includes('your-domain')) {
+                                throw new Error('无效的支付链接');
+                            }
+                        } catch {
+                            alert('支付链接无效，请使用模拟支付测试');
+                            resetBtn(btn, plan);
+                            return;
+                        }
                         // 在新窗口打开支付页面
                         window.open(result.data.payUrl, '_blank');
                         // 轮询订单状态

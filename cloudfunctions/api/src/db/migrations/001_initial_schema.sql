@@ -143,7 +143,7 @@ CREATE TABLE usage_records (
 CREATE INDEX idx_usage_user ON usage_records(user_id);
 CREATE INDEX idx_usage_action ON usage_records(action);
 CREATE INDEX idx_usage_created ON usage_records(created_at);
-CREATE INDEX idx_usage_user_month ON usage_records(user_id, date_trunc('month', created_at));
+CREATE INDEX idx_usage_user_created ON usage_records(user_id, created_at);
 
 COMMENT ON TABLE usage_records IS '每次任务启动/导出时记录，用于额度扣减审计和统计分析';
 COMMENT ON COLUMN usage_records.quota_charged IS '本次扣减的额度数（通常为1）';
